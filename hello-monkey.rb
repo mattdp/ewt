@@ -24,14 +24,13 @@ get '/hello-monkey/handle-gather' do
 		response = Twilio::TwiML::Response.new do |r|
 			r.Dial '+13105551212' ## didn't work for me, need another phone
 			r.Say 'The call failed or the remote party hung up. Goodbye!'
-		end
+		end.text
 	elsif params['Digits'] == 2
-		response = Twilio::TwiML::Response.new do |r|
+		Twilio::TwiML::Response.new do |r|
 			r.Say 'Record your monkey howl after the tone.'
 			r.Record maxLength: '30', action: '/hello-monkey/handle-record', method: 'get'
-		end
+		end.text
 	end
-	response.text
 end
 
 get '/hello-monkey/handle-record' do 
