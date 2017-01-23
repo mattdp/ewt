@@ -4,7 +4,7 @@ require 'twilio-ruby'
 
 get '/call-handler' do
   Twilio::TwiML::Response.new do |r|
-  	r.Gather numDigits: '1', action: '/call-handler/handle-gather', timeout: '10', method: 'get' do |g|
+  	r.Gather numDigits: '1', action: '/handle-gather', timeout: '10', method: 'get' do |g|
     	g.Say 'Welcome to email without typing. 
     	Press 1 to send an email.
       Press 2 for more information.'
@@ -13,7 +13,7 @@ get '/call-handler' do
   end.text
 end
 
-get '/call-handler/handle-gather' do
+get 'handle-gather' do
 	if params['Digits'] == '1'
 		response = Twilio::TwiML::Response.new do |r|
 			r.Say 'After the beep, please say who you want to 
