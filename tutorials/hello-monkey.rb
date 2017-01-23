@@ -20,12 +20,12 @@ end
 
 # get '/hello-monkey/handle-gather' do
 # 	redirect '/hello-monkey' unless ['1','2'].include?(params['Digits'])
-# 	if params['Digits'] == 1
+# 	if params['Digits'] == '1'
 # 		response = Twilio::TwiML::Response.new do |r|
 # 			r.Dial '+13105551212' ## didn't work for me, need another phone
 # 			r.Say 'The call failed or the remote party hung up. Goodbye!'
 # 		end.text
-# 	elsif params['Digits'] == 2
+# 	elsif params['Digits'] == '2'
 # 		Twilio::TwiML::Response.new do |r|
 # 			r.Say 'Record your monkey howl after the tone.'
 # 			r.Record maxLength: '30', action: '/hello-monkey/handle-record', method: 'get'

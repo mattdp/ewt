@@ -14,14 +14,14 @@ get '/call-handler' do
 end
 
 get '/call-handler/handle-gather' do
-	if params['Digits'] == 1
+	if params['Digits'] == '1'
 		response = Twilio::TwiML::Response.new do |r|
 			r.Say 'After the beep, please say who you want to 
 			send a message to, and then recite your message. 
 			There will be up to 2 minutes of recording.'
 			r.Record maxLength: '120', action: '/call-handler/handle-record', method: 'get'
 		end.text
-	elsif params['Digits'] == 2
+	elsif params['Digits'] == '2'
 		Twilio::TwiML::Response.new do |r|
 			r.Say "Hi, I'm Matt, the creator of Email Without Typing. 
 			This service is meant to help people who want to send email 
