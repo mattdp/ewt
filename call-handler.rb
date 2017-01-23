@@ -4,11 +4,12 @@ require 'twilio-ruby'
 
 get '/call-handler' do
   Twilio::TwiML::Response.new do |r|
-  	r.Gather numDigits: '1', action: '/call-handler/handle-gather', method: 'get' do |g|
+  	r.Gather numDigits: '1', action: '/call-handler/handle-gather', timeout: '10', method: 'get' do |g|
     	g.Say 'Welcome to email without typing. 
-    	Press 1 to send an email
-      Press 2 for more information'
+    	Press 1 to send an email.
+      Press 2 for more information.'
     end
+    r.Say "We didn't receive any key presses. Goodbye!"
   end.text
 end
 
@@ -29,6 +30,9 @@ get '/call-handler/handle-gather' do
 			with your question. We'll get back to you as soon as we can!"
 		end.text
 	else
+		response = Twilio::TwiML::Response.new do |r|
+			r.Say 'Please enter a 1 or a 2.'
+		end.text		
 		redirect '/call-handler'
 	end
 end
