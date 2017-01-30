@@ -15,6 +15,19 @@ end
 
 get '/call-handler/handle-gather' do
 	if params['Digits'] == '1'
+
+		account_sid = ENV["TWILIO_ID"]
+		auth_token = ENV["TWILIO_AUTH"]
+
+		# set up a client to talk to the Twilio REST API
+		@client = Twilio::REST::Client.new account_sid, auth_token
+
+		@client.account.messages.create({
+		  :from => ENV["TWILIO_PHONE"],
+		  :to => ENV["MDP_PHONE"], 
+		  :body => 'Check EWT! Someone reached the recording stage',
+		})
+
 		response = Twilio::TwiML::Response.new do |r|
 			r.Say 'After the beep, please say who you want to 
 			send a message to, and then recite your message. 
